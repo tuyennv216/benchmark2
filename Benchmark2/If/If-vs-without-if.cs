@@ -1,9 +1,9 @@
 ﻿using BenchmarkDotNet.Attributes;
 using Benmark2._model;
 
-//| BenmarkIf			| 305.1 ms | 21.32 ms | 54.66 ms | 293.6 ms | 10000.0000 | 3000.0000 | - | 95 MB |
+//|        BenmarkIf | 280.0 ms | 7.02 ms | 18.61 ms | 269.1 ms | 10000.0000 | 3000.0000 |     95 MB |
 
-//| BenmarkWithoutIf	| 369.7 ms | 50.12 ms | 132.05 ms | 301.8 ms | 11000.0000 | 3500.0000 | 500.0000 | 95 MB |
+//| BenmarkWithoutIf | 275.7 ms | 6.88 ms | 17.88 ms | 267.4 ms | 10000.0000 | 3000.0000 |     95 MB |
 
 namespace Benmark2.If
 {
@@ -61,10 +61,9 @@ namespace Benmark2.If
 			for (var i = 0; i < NumberOfItems; i++)
 			{
 				var ticket = new Ticket("name", i, 2 * i, DateTime.Now);
-				var value1 = ticket.Value % 2;
-				var value2 = value1 == 0 ? 1 : 0;
-				result[i] = value1 * (ticket.Value + ticket.Value * ticket.Price)
-					+ value2 * (ticket.Value * ticket.Value + ticket.Price);
+				var isEven = ticket.Value % 2;
+				result[i] = isEven * (ticket.Value + ticket.Value * ticket.Price)
+					+ ~isEven * (ticket.Value * ticket.Value + ticket.Price);
 			}
 			return result;
 		}

@@ -1,0 +1,1 @@
+dotnet run --project ./Benchmark2/Benchmark2.csproj -c Release
